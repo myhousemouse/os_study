@@ -185,3 +185,73 @@
         - 자바 → RMI …
         - 고급 엔터프라이즈 환경에서 자주 씀, 현재 구현하기엔 너무 복잡한 내용
         - 클라이언트에게 stub 제공
+- 7강. 쓰레드의 이해
+    - 쓰레드
+        - code하고 data영역을 공유
+        - lightweight process
+        - CPU 유틸의 기본 유닛
+            - CPU를 점유하는 단위
+            - PID 안 tid(thread ID)가 CPU를 점유하는 것
+        - PC(프로그램 카운터), register set, stack도 tid에 따라 달라져야 함
+    - 멀티쓰레딩
+        - Responsiveness : non-blocking으로 계속 실행할수있음
+        - Resource Sharing
+        - 코드와 데이터 영역을 공유하기 때문에 shared memory처럼 사용가능 → 리소스 사용에 자유로움
+        - Economy : PCB(컨텍스트 스위칭)보다 쉬움
+        - Scalability: 멀티프로세서 아키텍처 병렬처리로 확장성 높음
+    - 자바에서 쓰레드
+        - JVM이 쓰레드 기반 모델
+        - 쓰레드 생성과 관리가 쉽다
+        - 사용방법
+            - 쓰레드 클래스 상속받기
+                - public void run() 오버라이드
+            - Implementing
+                - runnable 인터페이스를 implementgks 클래스를 오버라이딩
+            - 익명쓰레드(Lambda express)
+                - 새로운 클래스 정의하지말고 람다 익스프레션으로 사용
+    - 멀티코어 프로그래밍
+        - 싱글 스레드 → 인터리브(사이사이 끼워놓는다)
+        - 멀티 스레드 → 병렬처리
+        - 문제점
+            - separate tasks를 확인할수있어야 함
+            - 밸런스:동등하게 데이터 쪼개서 일시키기
+            - 데이터 쪼개기
+            - 데이터 의존성 고려 (task 동기화 등)
+            - 테스트 및 디버깅
+        - 암달의 법칙
+            - CPU코어가 많으면 많을수록 좋은건 아니다!
+    
+- 8강.멀티쓰레딩
+    
+    종류
+    
+    - 유저 쓰레드 → 사용자 모드
+        - 네이티브 쓰레드
+        - 유저모드 위에서 쓰레드 사용
+    - 커널 쓰레드
+        - 직접 manage함
+    - 유저쓰레드 ↔ 커널쓰레드
+        - Many to One
+        - One to One
+        - Many to Many
+    - 쓰레드 라이브러리
+        - 쓰레드를 매니징하는(생성, 종료, 슬립 등)
+        - POSIX 피스레드
+        - 윈도우 쓰레드
+        - 자바 쓰레드 → JVM이기에 운영체제에 종속적
+    - Implicit 쓰레딩
+        - 자바 pthread → excutor 프레임워크를 사용하는 것과 같음
+        - 동시성과 페러럴한 디자인이다.
+        - 쓰레드 풀
+            - 여러개 쓰레드를 풀에 저장하고 필요하면 풀에서 꺼내다가 쓴다.
+        - 포크 앤 조인 (=create 쓰레드)
+        - OpenMP
+            - c,c++에서 병렬처리를 할수있도록
+            - 페러렐 리전만 지정 → 코드 블록이 패밀리처럼 알아서 실행되지않는가?
+                - 컴파일러에게 지시함 → 해당 리전만 병렬로 쓰레드 만듬
+                
+                <img width="1592" height="580" alt="image" src="https://github.com/user-attachments/assets/c3d121e2-ded4-4227-b17f-7f3fecd1d2fc" />
+
+                
+        - GDC
+            - mac os에서 사용
